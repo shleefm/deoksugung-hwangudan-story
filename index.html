@@ -1907,11 +1907,13 @@
   (function () {
     var initial = hashChapter();
     showChapter(initial || order[0], false);
-    try { history.replaceState({ ch: current }, '', '#' + current); } catch (e) {}
     if (initial) {
       var jump = function () { window.scrollTo(0, chapterTop(initial)); };
       window.requestAnimationFrame(jump);
       window.addEventListener('load', jump);
+    } else {
+      /* 해시가 없으면 주소에 #ch1을 끼워 넣지 않는다 — 브라우저가 그 위치로 스크롤해 버린다 */
+      try { history.replaceState({ ch: current }, '', location.pathname + location.search); } catch (e) {}
     }
   })();
   window.addEventListener('resize', function () {
