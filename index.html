@@ -219,7 +219,7 @@
     line-height:1.45;
     letter-spacing:-.02em;
     color:var(--giwa);
-    padding-right:34px;
+    padding-right:96px;
   }
   .card-sum{
     display:block;
@@ -232,21 +232,30 @@
     border-radius:0 8px 8px 0;
     padding:8px 12px;
   }
+  /* 카드 열고 닫기 — 글자 버튼(칩) */
   .chev{
     position:absolute;
-    top:20px;
-    right:16px;
-    width:24px;
-    height:24px;
-    line-height:22px;
-    text-align:center;
-    font-size:20px;
-    font-weight:400;
-    color:var(--muted);
-    border-radius:50%;
-    transition:transform .25s ease, color .2s ease;
+    top:14px;
+    right:14px;
+    display:inline-block;
+    font-family:inherit;
+    font-size:12.5px;
+    font-weight:700;
+    line-height:1;
+    letter-spacing:.01em;
+    color:var(--ink-soft);
+    background:#FFFDF9;
+    border:1px solid rgba(122,115,106,.32);
+    border-radius:999px;
+    padding:8px 11px 7px;
+    white-space:nowrap;
+    transition:color .18s ease, background .18s ease, border-color .18s ease;
   }
-  .card.open .chev{transform:rotate(45deg);color:var(--dancheong);}
+  .card.open .chev{
+    color:#fff;
+    background:var(--dancheong);
+    border-color:var(--dancheong);
+  }
   .card-body{
     max-height:0;
     overflow:hidden;
@@ -554,6 +563,10 @@
     .chfoot,.tabs,.controls{display:none !important;}
   }
 
+  @media (max-width:420px){
+    .card-title{padding-right:84px;}
+    .chev{top:14px;right:12px;font-size:11.5px;padding:7px 9px 6px;}
+  }
   @media (max-width:360px){
     body{font-size:16px;}
     .hero h1{font-size:25px;}
@@ -616,7 +629,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c1-1">
         <span class="card-title">왕이 될 뻔한 사람, 시를 골랐다 — 월산대군</span>
         <span class="card-sum">세조의 첫 손자이자 성종의 친형. 원래는 왕위 1순위였지만 동생에게 자리를 넘기고, 평생 시와 술과 달빛으로 살았습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c1-1">
         <div class="card-inner">
@@ -638,7 +651,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c1-2">
         <span class="card-title">스무 살에 떠난 아버지가 왕이 되다 — 의경세자와 덕종</span>
         <span class="card-sum">월산대군과 성종의 아버지. 세자가 된 지 2년 만에 스무 살로 요절했지만, 아들 성종이 왕이 되면서 '덕종'으로 추존되었습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c1-2">
         <div class="card-inner">
@@ -668,7 +681,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c1-3">
         <span class="card-title">한 무덤에서 갈라진 두 동네 — 정동과 정릉동</span>
         <span class="card-sum">정동(貞洞)과 정릉동(貞陵洞)은 같은 무덤, 태조의 계비 신덕왕후의 '정릉'에서 나온 이름입니다. 무덤이 옮겨가면서 이름이 둘로 갈라졌습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c1-3">
         <div class="card-inner">
@@ -688,7 +701,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c1-4">
         <span class="card-title">왕비의 무덤 돌이 다리 밑에 거꾸로 박혔다 — 광통교</span>
         <span class="card-sum">태종은 계모의 능을 도성 밖으로 내보내고, 남은 돌로 청계천 광통교를 놓았습니다. 궁궐의 구름무늬가 지금도 다리 밑에서 거꾸로 박혀 있습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c1-4">
         <div class="card-inner">
@@ -735,7 +748,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c1-5">
         <span class="card-title">왕릉을 감싼 세 겹의 돌 — 병풍석·신장석·난간석</span>
         <span class="card-sum">흙이 흘러내리지 않게 두른 병풍석, 방위를 지키는 신장석, 성역을 가르는 난간석. 돌마다 새긴 문양도 맡은 역할도 다릅니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c1-5">
         <div class="card-inner">
@@ -773,7 +786,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c2-1">
         <span class="card-title">형의 집에서 황제의 궁으로 — 덕수궁의 다섯 이름</span>
         <span class="card-sum">월산대군의 사저 → 선조의 피란 행궁 → 광해군이 내린 '경운궁' → 고종의 황궁 → 오늘의 덕수궁. 한자리에서 이름이 여러 번 바뀌었습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c2-1">
         <div class="card-inner">
@@ -801,7 +814,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c2-2">
         <span class="card-title">270년 동안 조선의 진짜 정궁 — 창덕궁</span>
         <span class="card-sum">태종 5년(1405)에 지은 별궁이었지만, 임진왜란 뒤 약 270년간 실질적인 정궁 노릇을 했습니다. 1997년 유네스코 세계문화유산.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c2-2">
         <div class="card-inner">
@@ -823,7 +836,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c2-3">
         <span class="card-title">궁호를 내린 왕, 쫓겨난 왕 — 광해군</span>
         <span class="card-sum">경운궁이라는 이름을 준 왕. 전후 복구와 중립외교로 다시 평가받지만, 인조반정으로 폐위되어 제주에서 생을 마쳤습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c2-3">
         <div class="card-inner">
@@ -850,7 +863,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c2-4">
         <span class="card-title">담을 넘어 숨은 왕 — 인조반정</span>
         <span class="card-sum">1623년 서인 세력이 광해군을 몰아내고 능양군을 왕으로 세웠습니다. 명분은 '폐모살제'와 '배명친금', 그 뒤에는 호란이 왔습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c2-4">
         <div class="card-inner">
@@ -876,7 +889,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c2-5">
         <span class="card-title">이름이 바뀐 날 — 경운궁에서 덕수궁으로</span>
         <span class="card-sum">1907년 헤이그 특사 사건으로 고종이 강제 퇴위하자, 아들은 아버지의 궁에 '덕수'라는 이름을 올렸습니다. 효심인 듯, 유폐의 공식화였습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c2-5">
         <div class="card-inner">
@@ -902,7 +915,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c2-6">
         <span class="card-title">'덕수(德壽)' 두 글자 — 덕이 있으면 오래 산다</span>
         <span class="card-sum">《중용》의 "큰 덕을 지닌 사람은 반드시 장수를 누린다". 왕위를 물려준 상왕의 궁호로 즐겨 쓰던 오래된 이름입니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c2-6">
         <div class="card-inner">
@@ -922,7 +935,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c2-7">
         <span class="card-title">우리 역사의 '황궁'은 어디였나</span>
         <span class="card-sum">발해 상경, 고려 개경 만월대, 대한제국의 경운궁과 창덕궁. 황제를 자처한 나라마다 저마다의 황궁이 있었습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c2-7">
         <div class="card-inner">
@@ -945,7 +958,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c2-8">
         <span class="card-title">행궁(行宮) — 임금의 임시 집무실</span>
         <span class="card-sum">전쟁, 능 참배, 온천, 화재. 임금이 궁을 떠나 머물던 곳이 행궁입니다. 덕수궁도 행궁으로 시작했습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c2-8">
         <div class="card-inner">
@@ -968,7 +981,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c2-9">
         <span class="card-title">정전과 편전 — 보여주는 방, 일하는 방</span>
         <span class="card-sum">즉위식과 사신 접견은 정전, 매일의 회의와 결재는 편전. 덕수궁에서는 중화전이 정전, 준명당과 덕홍전이 편전 몫을 했습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c2-9">
         <div class="card-inner">
@@ -993,7 +1006,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c2-10">
         <span class="card-title">33미터 뒤로 물러난 궁궐의 얼굴 — 대안문에서 대한문으로</span>
         <span class="card-sum">동쪽 문이던 대안문이 환구단을 마주보며 정문이 되고, 1906년 '대한문'이 되었습니다. 그리고 도로 확장에 두 번 밀려났습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c2-10">
         <div class="card-inner">
@@ -1021,7 +1034,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c2-11">
         <span class="card-title">궁궐 문 이름에 숨은 한 글자 — '화(化)'</span>
         <span class="card-sum">광화문, 돈화문, 홍화문, 인화문, 흥화문. 정문마다 '화'가 붙은 데는 이유가 있습니다. 왕의 덕이 백성에게 흘러간다는 뜻입니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c2-11">
         <div class="card-inner">
@@ -1061,7 +1074,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c2-12">
         <span class="card-title">다리 하나가 마음을 씻는다 — 금천교</span>
         <span class="card-sum">정문을 지나 정전으로 가기 전 반드시 건너는 돌다리. 세속에서 왕의 공간으로 들어가는 경계였습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c2-12">
         <div class="card-inner">
@@ -1088,7 +1101,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c2-13">
         <span class="card-title">중화문 — 황제의 문턱에 오른 이름</span>
         <span class="card-sum">《중용》의 '중(中)'과 '화(和)'에서 온 이름. 제후국 정전의 '정(政)' 대신 천자의 덕목을 걸었습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c2-13">
         <div class="card-inner">
@@ -1116,7 +1129,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c2-14">
         <span class="card-title">용의 발톱은 몇 개인가 — 오조룡과 영조의 어진</span>
         <span class="card-sum">사조룡은 왕, 오조룡은 황제. 그런데 영조의 곤룡포에도 발톱이 다섯 개입니다. 조선은 '밖으로 왕, 안으로 황제'였습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c2-14">
         <div class="card-inner">
@@ -1162,7 +1175,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c3-1">
         <span class="card-title">정동 언덕의 러시아 공사 — 베베르</span>
         <span class="card-sum">1885년 초대 주한 러시아 공사로 와서 고종의 외교 파트너가 되었고, 1896년 아관파천을 성사시켜 조선의 권력 지형을 바꾼 인물입니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c3-1">
         <div class="card-inner">
@@ -1189,7 +1202,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c3-2">
         <span class="card-title">왕이 남의 나라로 간 밤 — 아관파천</span>
         <span class="card-sum">1896년 2월 11일, 고종과 왕세자가 가마에 숨어 경복궁을 빠져나가 러시아 공사관으로 향했습니다. 1년 넘게 이어진 '제2의 궁궐' 생활.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c3-2">
         <div class="card-inner">
@@ -1217,7 +1230,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c3-3">
         <span class="card-title">러시아 공사관의 안주인, 황후의 친구 — 손탁</span>
         <span class="card-sum">베베르의 처형이자 알자스 출신 프랑스인. 고종의 식사와 커피를 맡았고, 한국 최초의 서양식 호텔을 열었습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c3-3">
         <div class="card-inner">
@@ -1237,7 +1250,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c3-4">
         <span class="card-title">호텔과 구락부 — 정동의 두 거실</span>
         <span class="card-sum">손탁호텔은 국빈의 침대이자 황실 연회장, 정동구락부는 개화파와 외교관의 비밀 회의실이었습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c3-4">
         <div class="card-inner">
@@ -1262,7 +1275,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c3-5">
         <span class="card-title">커피 한 잔에 담긴 독 — 김홍륙 독다 사건</span>
         <span class="card-sum">1898년 9월, 황실 가비차 주전자에 아편이 들어갔습니다. 진한 커피만 마시던 고종은 한 모금에 맛이 다름을 알아채고 뱉었습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c3-5">
         <div class="card-inner">
@@ -1298,7 +1311,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c3-6">
         <span class="card-title">황제의 베란다 — 정관헌의 가배 한 잔</span>
         <span class="card-sum">'고요히 내다보는 집'. 로마네스크 기둥에 한옥 지붕, 황금빛 난간. 고종이 커피를 마시며 궁궐을 내려다보던 자리입니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c3-6">
         <div class="card-inner">
@@ -1325,7 +1338,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c3-7">
         <span class="card-title">하늘에 제사 지낼 권리 — 환구단</span>
         <span class="card-sum">1897년 고종이 황제로 즉위하며 쌓은 둥근 제천단. 일제가 본단을 헐어 호텔을 지었고, 지금은 황궁우와 돌북만 남았습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c3-7">
         <div class="card-inner">
@@ -1369,7 +1382,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c4-1">
         <span class="card-title">궁녀에서 황귀비로, 그리고 학교를 세운 사람 — 엄비</span>
         <span class="card-sum">명성황후를 모시던 상궁이었으나 아관파천의 공로로 총애를 얻고, 영친왕을 낳아 대한제국 최고의 여성 작위에 올랐습니다. 사재로 학교를 세웠습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c4-1">
         <div class="card-inner">
@@ -1398,7 +1411,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c4-2">
         <span class="card-title">환갑에 얻은 딸, 37년 만에 돌아온 옹주 — 덕혜옹주</span>
         <span class="card-sum">고종이 60세에 얻은 막내딸. 덕수궁 준명당에서 유치원을 다니던 아이는 13세에 일본으로 끌려가고, 1962년에야 고국 땅을 밟았습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c4-2">
         <div class="card-inner">
@@ -1424,7 +1437,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c4-3">
         <span class="card-title">공주와 옹주, 한 글자 차이 — '옹주(翁主)'라는 이름</span>
         <span class="card-sum">왕비의 딸은 공주, 후궁의 딸은 옹주. 품계는 같아도 혼례 규모와 받는 땅, 남편의 품계까지 한 단계씩 달랐습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c4-3">
         <div class="card-inner">
@@ -1447,7 +1460,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c4-4">
         <span class="card-title">일본 황족으로 태어나 대한제국 마지막 황태자비가 된 사람 — 이방자</span>
         <span class="card-sum">영친왕의 아내. 광복 뒤 무국적의 세월을 보내고 1963년 귀국해, 장애 아동을 위한 학교와 시설을 세웠습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c4-4">
         <div class="card-inner">
@@ -1475,7 +1488,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c4-5">
         <span class="card-title">눈물로 조약을 거부한 대신 — 한규설</span>
         <span class="card-sum">1905년 을사늑약 현장에서 끝까지 찬성을 거부하고 감금된 참정대신. 경술국치 뒤에는 남작 작위까지 거절했습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c4-5">
         <div class="card-inner">
@@ -1498,7 +1511,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c4-6">
         <span class="card-title">여성에게 대학의 문을 연 교장 — 룰루 프라이</span>
         <span class="card-sum">이화학당 제4대 당장. 1910년 대학과를 만들어 이화여대의 뿌리를 놓았고, 유관순 열사의 스승이기도 했습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c4-6">
         <div class="card-inner">
@@ -1518,7 +1531,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c4-7">
         <span class="card-title">정동에서 태어난 한국 최초의 여의사 — 김점동, 박에스더</span>
         <span class="card-sum">이화학당 초기 학생이자 보구녀관의 통역 소녀. 1900년 미국에서 의학박사가 되어 돌아와, 나귀를 타고 왕진 다녔습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c4-7">
         <div class="card-inner">
@@ -1544,7 +1557,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c4-8">
         <span class="card-title">덕수궁 담장 너머의 미국 대사관저</span>
         <span class="card-sum">정동은 구한말 각국 공사관이 모인 외교의 거리였습니다. 덕수궁 서쪽에는 지금도 주한 미국 대사의 관저가 있습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c4-8">
         <div class="card-inner">
@@ -1571,7 +1584,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c5-1">
         <span class="card-title">① 예(藝)에서 노닌다 — 유예도와 유어예</span>
         <span class="card-sum">도는 거창한 관념이 아니라 활 쏘고 글 쓰는 일상 속에 있습니다. 《논어》의 마지막 수양 단계, '유어예' 이야기.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c5-1">
         <div class="card-inner">
@@ -1601,7 +1614,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c5-2">
         <span class="card-title">② '줄행랑'은 어디서 나온 말일까 — 행랑채</span>
         <span class="card-sum">궁궐 전각을 감싼 긴 회랑, 양반집 대문 옆 하인들의 방. 그 줄지어 선 행랑을 따라 내빼던 데서 '줄행랑'이 나왔습니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c5-2">
         <div class="card-inner">
@@ -1625,7 +1638,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c5-3">
         <span class="card-title">③ "갑은 4, 임은 2" — 연도만 보고 간지 계산하기</span>
         <span class="card-sum">서기 연도의 끝자리 하나로 천간이 정해집니다. 갑은 4, 을은 5, 병은 6. 2026년은 끝자리가 6이라 병오년입니다.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c5-3">
         <div class="card-inner">
@@ -1682,7 +1695,7 @@
       <button class="card-head" aria-expanded="false" aria-controls="c5-4">
         <span class="card-title">덤 — 걸으면서 만난 세 가지</span>
         <span class="card-sum">고종이 마지막 숨을 거둔 함녕전, 350년 된 회화나무가 지키는 돈덕전, 이토의 사당 정문으로 끌려갔다 돌아온 흥화문.</span>
-        <span class="chev" aria-hidden="true">+</span>
+        <span class="chev" aria-hidden="true">펼치기 ▾</span>
       </button>
       <div class="card-body" id="c5-4">
         <div class="card-inner">
@@ -1744,6 +1757,8 @@
     var body = card.querySelector('.card-body');
     var head = card.querySelector('.card-head');
     if (!body || !head) return;
+    var chev = head.querySelector('.chev');
+    if (chev) chev.textContent = open ? '접기 ▴' : '펼치기 ▾';
     if (open) {
       card.classList.add('open');
       head.setAttribute('aria-expanded', 'true');
