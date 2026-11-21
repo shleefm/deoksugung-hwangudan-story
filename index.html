@@ -488,6 +488,72 @@
   .calc-note{margin:12px 0 0;font-size:12.5px;line-height:1.6;color:var(--muted);}
   .calc-empty{font-size:15px;color:var(--muted);}
 
+  /* ---------- 장 전환 (한 번에 한 장) ---------- */
+  .chapter{display:none;}
+  .chapter.is-active{display:block;}
+
+  .chfoot{
+    margin:28px 0 4px;
+    padding:20px 16px 18px;
+    background:linear-gradient(180deg,#FFFDF8,#F6F0E3);
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+  }
+  .chfoot-label{
+    margin:0 0 11px;
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:.1em;
+    color:var(--dancheong);
+    text-align:center;
+  }
+  .chfoot-tabs{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:7px;
+  }
+  .chfoot-tabs .chip{
+    padding:11px 2px;
+    font-size:14.5px;
+    border-radius:11px;
+    text-align:center;
+  }
+  .chfoot-nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:13px;
+  }
+  .pn{
+    flex:1 1 132px;
+    font-family:inherit;
+    font-size:14px;
+    font-weight:700;
+    line-height:1.45;
+    letter-spacing:-.01em;
+    color:var(--jade);
+    background:#fff;
+    border:1px solid rgba(46,110,102,.3);
+    border-radius:11px;
+    padding:11px 12px;
+    cursor:pointer;
+  }
+  .pn:active{background:#EDF5F3;}
+  .pn-next{color:#fff;background:var(--jade);border-color:var(--jade);}
+  .pn-next:active{background:#275E57;}
+  .pn[hidden]{display:none;}
+
+  @media (max-width:360px){
+    .chfoot-tabs .chip{font-size:13.5px;padding:10px 1px;}
+    .pn{font-size:13px;}
+  }
+
+  @media print{
+    .chapter{display:block !important;}
+    .chfoot,.tabs,.controls{display:none !important;}
+  }
+
   @media (max-width:360px){
     body{font-size:16px;}
     .hero h1{font-size:25px;}
@@ -539,7 +605,7 @@
     <button class="ctrl" id="collapseAll">모두 접기</button>
   </div>
   <!-- ===================== 1장 ===================== -->
-  <section class="chapter" id="ch1">
+  <section class="chapter is-active" id="ch1">
     <div class="ch-head">
       <span class="ch-num">제1장</span>
       <h2>정동의 뿌리<br>왕위 양보한 형의 집이 궁궐이 되기까지</h2>
@@ -1644,6 +1710,22 @@
       <p>왕위를 양보한 형의 집이 황제의 궁궐이 되고, 왕비의 무덤 돌이 다리 밑에 박히고, 커피 한 잔이 목숨을 구했습니다. 오늘 걸은 길이 조금 다르게 보이면, 이 이야기는 제 몫을 다한 셈입니다.</p>
     </div>
   </section>
+
+  <nav class="chfoot" aria-label="장 이동">
+    <p class="chfoot-label">다른 장으로</p>
+    <div class="chfoot-tabs">
+      <button class="chip" type="button" data-go="ch1" aria-label="1장 정동의 뿌리">1장</button>
+      <button class="chip" type="button" data-go="ch2" aria-label="2장 궁궐과 문의 암호">2장</button>
+      <button class="chip" type="button" data-go="ch3" aria-label="3장 아관파천과 커피">3장</button>
+      <button class="chip" type="button" data-go="ch4" aria-label="4장 정동의 인물들">4장</button>
+      <button class="chip" type="button" data-go="ch5" aria-label="5장 보너스 잡학">5장</button>
+    </div>
+    <div class="chfoot-nav">
+      <button class="pn" type="button" id="goPrev" hidden>← 이전 장</button>
+      <button class="pn pn-next" type="button" id="goNext" hidden>다음 장 →</button>
+    </div>
+  </nav>
+
 </main>
 
 <footer class="foot wrap">
@@ -1692,10 +1774,10 @@
   var expandAll = document.getElementById('expandAll');
   var collapseAll = document.getElementById('collapseAll');
   if (expandAll) expandAll.addEventListener('click', function () {
-    cards.forEach(function (c) { setOpen(c, true); });
+    currentCards().forEach(function (c) { setOpen(c, true); });
   });
   if (collapseAll) collapseAll.addEventListener('click', function () {
-    cards.forEach(function (c) { setOpen(c, false); });
+    currentCards().forEach(function (c) { setOpen(c, false); });
   });
 
   Array.prototype.forEach.call(document.querySelectorAll('.quiz-btn'), function (btn) {
@@ -1707,29 +1789,131 @@
     });
   });
 
-  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
-  chips.forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      var sec = document.getElementById(chip.getAttribute('data-go'));
-      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  /* ---------- 장 전환 (한 번에 한 장씩) ---------- */
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.chapter'));
+  var order = sections.map(function (s) { return s.id; });
+  var tabBtns = Array.prototype.slice.call(
+    document.querySelectorAll('.tabs .chip[data-go], .chfoot .chip[data-go]'));
+  var prevBtn = document.getElementById('goPrev');
+  var nextBtn = document.getElementById('goNext');
+  var tabBar = document.querySelector('.tabs');
+  var current = order[0] || null;
+
+  function labelOf(id) {
+    var c = document.querySelector('.tabs .chip[data-go="' + id + '"]');
+    return c ? c.textContent.replace(/\s*·\s*/g, ' ').replace(/\s+/g, ' ').trim() : id;
+  }
+
+  /* 지금 보고 있는 장의 카드만 대상으로 한다 (숨은 장은 높이가 0) */
+  function currentCards() {
+    var sec = document.querySelector('.chapter.is-active');
+    return Array.prototype.slice.call((sec || document).querySelectorAll('.card'));
+  }
+
+  function chapterTop(id) {
+    var sec = document.getElementById(id);
+    if (!sec) return 0;
+    var navH = tabBar ? tabBar.getBoundingClientRect().height : 0;
+    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    return Math.max(0, sec.getBoundingClientRect().top + y - navH - 10);
+  }
+
+  function markActive() {
+    var i = order.indexOf(current);
+    tabBtns.forEach(function (b) {
+      var on = b.getAttribute('data-go') === current;
+      b.classList.toggle('on', on);
+      if (on) b.setAttribute('aria-current', 'true');
+      else b.removeAttribute('aria-current');
+    });
+    if (prevBtn) {
+      if (i > 0) {
+        prevBtn.hidden = false;
+        prevBtn.setAttribute('data-go', order[i - 1]);
+        prevBtn.setAttribute('aria-label', '이전 장 — ' + labelOf(order[i - 1]));
+        prevBtn.textContent = '← 이전: ' + labelOf(order[i - 1]);
+      } else {
+        prevBtn.hidden = true;
+        prevBtn.removeAttribute('data-go');
+      }
+    }
+    if (nextBtn) {
+      if (i > -1 && i < order.length - 1) {
+        nextBtn.hidden = false;
+        nextBtn.setAttribute('data-go', order[i + 1]);
+        nextBtn.setAttribute('aria-label', '다음 장 — ' + labelOf(order[i + 1]));
+        nextBtn.textContent = '다음: ' + labelOf(order[i + 1]) + ' →';
+      } else {
+        nextBtn.hidden = true;
+        nextBtn.removeAttribute('data-go');
+      }
+    }
+    /* 상단 탭 줄에서 현재 장이 가운데 오도록 좌우로만 맞춘다 */
+    var onChip = document.querySelector('.tabs .chip.on');
+    if (onChip && onChip.parentNode) {
+      var row = onChip.parentNode;
+      if (row.scrollWidth > row.clientWidth) {
+        var left = onChip.offsetLeft - (row.clientWidth - onChip.offsetWidth) / 2;
+        if (row.scrollTo) row.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
+        else row.scrollLeft = Math.max(0, left);
+      }
+    }
+  }
+
+  function showChapter(id, scroll) {
+    if (order.indexOf(id) < 0) id = order[0];
+    current = id;
+    sections.forEach(function (s) {
+      var on = s.id === id;
+      s.classList.toggle('is-active', on);
+      s.setAttribute('aria-hidden', on ? 'false' : 'true');
+    });
+    markActive();
+    if (scroll) window.scrollTo({ top: chapterTop(id), behavior: 'smooth' });
+  }
+
+  function goChapter(id) {
+    if (order.indexOf(id) < 0) return;
+    showChapter(id, true);
+    if (location.hash !== '#' + id) {
+      try { history.pushState({ ch: id }, '', '#' + id); }
+      catch (e) { location.hash = id; }
+    }
+  }
+
+  tabBtns.forEach(function (b) {
+    b.addEventListener('click', function () { goChapter(b.getAttribute('data-go')); });
+  });
+  [prevBtn, nextBtn].forEach(function (btn) {
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var id = btn.getAttribute('data-go');
+      if (id) goChapter(id);
     });
   });
 
-  var sections = Array.prototype.slice.call(document.querySelectorAll('.chapter'));
-  function markActive() {
-    var pos = window.scrollY + 120;
-    var active = sections[0] ? sections[0].id : null;
-    sections.forEach(function (s) { if (s.offsetTop <= pos) active = s.id; });
-    chips.forEach(function (c) {
-      c.classList.toggle('on', c.getAttribute('data-go') === active);
-    });
+  function hashChapter() {
+    var h = (location.hash || '').replace(/^#/, '');
+    return order.indexOf(h) >= 0 ? h : null;
   }
-  var ticking = false;
-  window.addEventListener('scroll', function () {
-    if (ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(function () { markActive(); ticking = false; });
-  }, { passive: true });
+  window.addEventListener('popstate', function () {
+    showChapter(hashChapter() || order[0], true);
+  });
+  window.addEventListener('hashchange', function () {
+    var id = hashChapter();
+    if (id && id !== current) showChapter(id, true);
+  });
+
+  (function () {
+    var initial = hashChapter();
+    showChapter(initial || order[0], false);
+    try { history.replaceState({ ch: current }, '', '#' + current); } catch (e) {}
+    if (initial) {
+      var jump = function () { window.scrollTo(0, chapterTop(initial)); };
+      window.requestAnimationFrame(jump);
+      window.addEventListener('load', jump);
+    }
+  })();
   window.addEventListener('resize', function () {
     cards.forEach(function (c) {
       if (c.classList.contains('open')) {
